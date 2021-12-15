@@ -63,10 +63,12 @@ class Turing():
             return False
 
 
-tape = [{'current_state': 'q0', 'direction': 'R',
-         'next_state': 'q1', 'read': '1', 'write': '0'},
-        {'current_state': 'q1', 'direction': 'L', 'next_state': 'q2', 'read': '&', 'write': '1'}]
+tape = [{'current_state': 'q0', 'direction': 'S',
+         'next_state': 'q0', 'read': 'a', 'write': 'a'},
+        {'current_state': 'q0', 'direction': 'S', 'next_state': 'q1', 'read': 'b', 'write': 'b'}, {
+            'current_state': 'q1', 'direction': 'R', 'next_state': 'q1', 'read': 'b', 'write': 'b'},
+        ]
 
 
-turing = Turing(tape, '1', 'q0', 'q2')
+turing = Turing(tape, 'aabb', 'q0', 'q1')
 print(turing.execute())
