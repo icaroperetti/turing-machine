@@ -8,15 +8,15 @@ class Turing():
         pass
 
     def execute(self):
-        i = 0
+        index = 0
         increment = 1
         current_tape = {}
         # Percorrer a entrada do usuário
-        while i < len(self.user_input):
-            print('i:', i)
+        while index < len(self.user_input):
+            print('index:', index)
             # Percorre as fitas para buscar o valor que precisa ser lido e o estado atual
             for tape in self.tape:
-                if tape.get('read') == self.user_input[i] and tape.get(
+                if tape.get('read') == self.user_input[index] and tape.get(
                         'current_state') == self.current_state:
                     current_tape = tape
 
@@ -26,20 +26,20 @@ class Turing():
             # Substituir o valor no indice [i] do tape pelo valor que deve ser escrito
             print("Antes:", self.user_input)
             print("Direction", current_tape.get('direction'))
-            self.user_input = self.user_input[:i] + \
-                current_tape.get('write') + self.user_input[i + 1:]
+            self.user_input = self.user_input[:index] + \
+                current_tape.get('write') + self.user_input[index + 1:]
 
-            print("Depois", self.user_input)
+            print("Depois:", self.user_input)
 
             # Caso exista mais um indice a diante continua para a direita
             if current_tape.get('direction') == 'R':
-                if not self.check_index(self.user_input, i + 1):
+                if not self.check_index(self.user_input, index + 1):
                     self.user_input += self.blank
                     increment = 1
 
              # Caso exista não exista indice atrás ele continua onde esta e vai concatenar com o valor do blank
             elif current_tape.get('direction') == 'L':
-                if not self.check_index(self.user_input, i - 1):
+                if not self.check_index(self.user_input, index - 1):
                     increment = 0
                     self.user_input = self.blank + self.user_input
                 # Se for necessário mover para a esquerda e existir um indice a esquerda, ele volta um indice para trás
@@ -48,7 +48,7 @@ class Turing():
             # Se for para parar o índice apenas continua onde está
             else:
                 increment = 0
-            i += increment
+            index += increment
             print("Input final", self.user_input)
             if self.current_state == self.final_state:
 
