@@ -63,11 +63,24 @@ class Turing():
             return False
 
 
-tape = [{'current_state': 'q0', 'direction': 'S',
-         'next_state': 'q0', 'read': 'a', 'write': 'a'},
-        {'current_state': 'q0', 'direction': 'S', 'next_state': 'q1', 'read': 'b', 'write': 'b'}, {
-            'current_state': 'q1', 'direction': 'R', 'next_state': 'q1', 'read': 'b', 'write': 'b'},
-        ]
+# tape = [{'current_state': 'q0', 'direction': 'S',
+#          'next_state': 'q0', 'read': 'a', 'write': 'a'},
+#         {'current_state': 'q0', 'direction': 'S', 'next_state': 'q1', 'read': 'b', 'write': 'b'}, {
+#             'current_state': 'q1', 'direction': 'R', 'next_state': 'q1', 'read': 'b', 'write': 'b'},
+#         ]
+
+# tape = [{'current_state': 'q0', 'direction': 'R', 'next_state': 'q1', 'read': '1', 'write': '1'},
+#         {'current_state': 'q1', 'direction': 'L',
+#             'next_state': 'q0', 'read': '0', 'write': '0'}
+#         ]
+
+# tape = [{'current_state': 'q0', 'direction': 'R',
+#          'next_state': 'q1', 'write': '0', 'read': '1'},
+#         {'current_state': 'q1', 'direction': 'S', 'write': '1', 'read': '0'}
+#         ]
+
+tape = [{'current_state': 'q0', 'direction': 'R',
+         'next_state': 'q1', 'write': '0', 'read': '1'}]
 
 
 turing = Turing(tape, 'aabb', 'q0', 'q1')
