@@ -54,7 +54,7 @@ class Turing():
 
                 return self.user_input
 
-    # Gambirarra para verificar se o indice existe na string ja que o python retorna error caso nao exista
+    # Verificar se o indice existe na string ja que o python retorna error caso nao exista
     def check_index(self, str, index):
         try:
             if str[index]:
