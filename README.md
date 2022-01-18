@@ -1,2 +1,3 @@
-# Outros testes fracassados
-https://colab.research.google.com/drive/11c-XtwO5T06-8cW6lyktfJg4tCFEL4O3
+# Máquina de Turing
+
+Código desenvolvido para a disciplina de Teoria da Computação do Instituto Federal Catarinense campus Videira.
