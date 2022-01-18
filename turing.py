@@ -62,7 +62,6 @@ class Turing():
             return False
 
 
-
 # Deve retornar 12
 tape = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'next_state': 'q1'},
         {'current_state': 'q1', 'direction': 'L',
