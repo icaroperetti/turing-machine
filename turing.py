@@ -14,12 +14,9 @@ class Turing():
         current_tape = {}
         for i in self.user_input:
             if not i in self.alphabet:
-                print(self.user_input)
-                print(self.user_input == self.alphabet)
                 raise Exception('Invalid input')
         # Percorrer a entrada do usuário
         while index < len(self.user_input):
-
             # Percorre as fitas para buscar o valor que precisa ser lido e o estado atual
             for tape in self.tape:
                 if tape.get('read') == self.user_input[index] and tape.get(
@@ -92,5 +89,5 @@ tape = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'ne
 #         ]
 
 
-turing = Turing(tape, '0L', 'q0', 'q1')
-print(turing.execute())
+turing = Turing(tape, '0A', 'q0', 'q1')
+print("Return:", turing.execute())
