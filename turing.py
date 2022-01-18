@@ -4,7 +4,7 @@ class Turing():
         self.user_input = user_input
         self.current_state = initial_state
         self.final_state = final_state
-        self.alphabet = '0A'
+        self.alphabet = '0'
         self.blank = '&'
         pass
 
@@ -72,10 +72,10 @@ class Turing():
 #         {'current_state': 'q3', 'direction': 'S', 'write': '&', 'read': '1'}
 #         ]
 
-tape = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'next_state': 'q1'},
-        {'current_state': 'q1', 'direction': 'L',
-            'write': '2', 'read': 'A'},
-        ]
+# tape = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'next_state': 'q1'},
+#         {'current_state': 'q1', 'direction': 'L',
+#             'write': '2', 'read': 'A'},
+#         ]
 
 # tape = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '1', 'next_state': 'q0'},
 #         {'current_state': 'q0', 'direction': 'R',
@@ -83,11 +83,12 @@ tape = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'ne
 
 #         ]
 
-# tape = [{'current_state': 'q0', 'direction': 'L', 'write': '1', 'read': '0', 'next_state': 'q1'},
-#         {'current_state': 'q1', 'direction': 'L',
-#             'write': '&', 'read': '&', 'next_state': 'q2'},
-#         ]
+# Deve retornar &&1
+tape = [{'current_state': 'q0', 'direction': 'L', 'write': '1', 'read': '0', 'next_state': 'q1'},
+        {'current_state': 'q1', 'direction': 'L',
+            'write': '&', 'read': '&', 'next_state': 'q2'},
+        ]
 
 
-turing = Turing(tape, '0A', 'q0', 'q1')
+turing = Turing(tape, '0', 'q0', 'q2')
 print("Return:", turing.execute())
