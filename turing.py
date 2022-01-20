@@ -91,19 +91,20 @@ class Turing():
 #         ]
 
 # Soma de 1
-# tape = [{'current_state': 'q0', 'read': '1', 'next_state': 'q0', 'write': '1', 'direction': 'R'},
+tape = [{'current_state': 'q0', 'read': '1', 'next_state': 'q0', 'write': '1', 'direction': 'R'},
 
-#         {'current_state': 'q0', 'read': '+',
-#             'next_state': 'q1', 'write': '1', 'direction': 'R'},
+        {'current_state': 'q0', 'read': '+',
+            'next_state': 'q1', 'write': '1', 'direction': 'R'},
 
-#         {'current_state': 'q1', 'read': '1',
-#         'next_state': 'q1', 'write': '1', 'direction': 'R'},
+        {'current_state': 'q1', 'read': '1',
+        'next_state': 'q1', 'write': '1', 'direction': 'R'},
 
-#         {'current_state': 'q1', 'read': '&',
-#         'next_state': 'q2', 'write': '&', 'direction': 'L'},
-#         {'current_state': 'q2', 'read': '1',
-#         'next_state': 'q3', 'write': '&', 'direction': 'S'},
-#         ]
+        {'current_state': 'q1', 'read': '&',
+        'next_state': 'q2', 'write': '&', 'direction': 'L'},
+        
+        {'current_state': 'q2', 'read': '1',
+        'next_state': 'q3', 'write': '&', 'direction': 'S'},
+        ]
 
 
 # tape = [
@@ -120,5 +121,5 @@ class Turing():
 #         'next_state': 'q4', 'write': '5', 'direction': 'R'},
 # ]
 
-turing = Turing(tape, '0', 'q0', 'q2')
+turing = Turing(tape, '1+1+1', 'q0', 'q3')
 print("Return:", turing.execute())
