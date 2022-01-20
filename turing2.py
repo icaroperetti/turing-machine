@@ -1,23 +1,27 @@
 
-# State: estados da máquina
+# q0: estados da máquina
 # Blank: caracter que representa o espaço vazio
-# Rules: regras de transição
-# Tape: fita de dados
-# Final: estado final
-# Position: posição seguinte da fita
+# girininho: regras de transição
+# q: fita de dados
+# f: estado final
 
-def turing_machine(state=None, blank=None, rules=[], tape=[], final=None, position=0):
+def turing_machine(Q=None, q0=None, blank=None, girininho=[], gama=[], sigma=[], f=None, position=0):
 
     # Se não houver elementos no fita, adiciona um espaço vazio
-    if not tape:
-        tape = [blank]
+    if not gama:
+        gama = [blank]
+
+    # Verificar se oq foi digitado é um valor válido
+    for i in sigma:
+        if not i in gama:
+            raise Exception('Invalid input')
 
     # Se a posição é menor que zero, define a positição como o tamanho da fita
     if position < 0:
-        position += len(tape)
+        position += len(gama)
 
     # Garantir que a fita tenha alguma informação
-    if position >= len(tape) or position < 0:
+    if position >= len(gama) or position < 0:
         raise Exception('Invalid position')
 
     """
@@ -26,14 +30,15 @@ def turing_machine(state=None, blank=None, rules=[], tape=[], final=None, positi
     """
 
     # Percorre as regras para encontrar a regra que deve ser aplicada
-    rules = dict(((s0, v0), (v1, dr, s1)) for (s0, v0, v1, dr, s1) in rules)
+    girininho = dict(((s0, v0), (v1, dr, s1))
+                     for (s0, v0, v1, dr, s1) in girininho)
 
     while(True):
-        # print(state, '\t', end=" ")
+        # print(q0, '\t', end=" ")
         # exit(0)
 
         # Laço de repetição para percorrer toda a fita
-        for i, v in enumerate(tape):
+        for i, v in enumerate(gama):
           # Se i for igual a posição atual, imprime o valor contido na posição
             if i == position:
                 print("[%s]" % v, end=" ")
@@ -41,20 +46,20 @@ def turing_machine(state=None, blank=None, rules=[], tape=[], final=None, positi
                 print(v, end=" ")
         print()
 
-        # Se o estado atual for igual o estado final para
-        if state == final:
+        # Se o estado atual for igual o estado f para
+        if q0 == f:
             break
 
         # Se o estado não estiver na regra para
-        if (state, tape[position]) not in rules:
+        if (q0, gama[position]) not in girininho:
             break
 
         # Define as váriaveis de acordo com a regra
-        (v1, dr, s1) = rules[(state, tape[position])]
+        (v1, dr, s1) = girininho[(q0, gama[position])]
         print("%s -> %s Valor escrito:%s Proximo:%s" %
-              (state, tape[position], v1, s1))
+              (q0, gama[position], v1, s1))
 
-        tape[position] = v1  # Sobrescreve o valor da fita
+        gama[position] = v1  # Sobrescreve o valor da fita
 
         # Direções
 
@@ -65,24 +70,24 @@ def turing_machine(state=None, blank=None, rules=[], tape=[], final=None, positi
 
             # Se não existir indice a esquerda, concatena com o valor do blank
             else:
-                tape.insert(0, blank)
+                gama.insert(0, blank)
         # Se para a direita incremenda a posição
         elif dr == 'right':
             position += 1
             # Se a posição for maior que o tamanho da fita, adiciona um espaço vazio
-            if position >= len(tape):
-                tape.append(blank)
+            if position >= len(gama):
+                gama.append(blank)
         else:
             position += 0
-        state = s1
+        q0 = s1
 
 
 print("Máquina de Turing Ícaro\n")
-# turing_machine(state='q0',  # estado inicial da máquina
+# turing_machine(q0='q0',  # estado inicial da máquina
 #                blank='&',  # Simbolo que representa o vazio
-#                tape=list("0A"),  # Fita de dados
-#                final='q2',  # Estado final da máquina
-#                rules=map(tuple,  # Regras de transição
+#                q=list("0A"),  # Fita de dados
+#                f='q2',  # Estado f da máquina
+#                girininho=map(tuple,  # Regras de transição
 #                          [
 #                              "q0 0 1 right q1".split(),
 #                              "q1 A 2 left q2".split(),
@@ -92,26 +97,29 @@ print("Máquina de Turing Ícaro\n")
 
 
 print("Máquina de Turing com parada")
-turing_machine(state='q0',  # estado inicial da máquina
-               blank='&',  # Simbolo que representa o vazio
-               tape=list("0"),  # Fita de dados
-               final='q4',  # Estado final da máquina
-               rules=map(tuple,  # Regras de transição
-                         [
-                             "q0 0 1 left q1".split(),
-                             "q1 & 1 right q2".split(),
-                             "q2 1 0 stop q3".split(),
-                             "q3 0 5 right q4".split(),
-                         ]
-                         )
-               )
+# turing_machine(
+#     Q="q0,q1,q2,q3,q4",
+#     sigma=[0, 1, '&'],
+#     q0='q0',  # estado inicial da máquina
+#     blank='&',  # Simbolo que representa o vazio
+#     gama=list("0"),  # Fita de dados
+#     f='q4',  # Estado f da máquina
+#     girininho=map(tuple,  # Regras de transição
+#                   [
+#                       "q0 0 1 left q1".split(),
+#                       "q1 & 1 right q2".split(),
+#                       "q2 1 0 stop q3".split(),
+#                       "q3 0 5 right q4".split(),
+#                   ]
+#                   )
+# )
 
 print("Máquina de Turing soma 1")
-# turing_machine(state='q0',  # estado inicial da máquina
+# turing_machine(q0='q0',  # estado inicial da máquina
 #                blank='&',  # Simbolo que representa o vazio
-#                tape=list("1+1+1"),  # Fita de dados
-#                final='q3',  # Estado final da máquina
-#                rules=map(tuple,  # Regras de transição
+#                q=list("1+1+1"),  # Fita de dados
+#                f='q3',  # Estado f da máquina
+#                girininho=map(tuple,  # Regras de transição
 #                          [
 #                              "q0 1 1 right q0".split(),
 #                              "q0 + 1 right q1".split(),
@@ -123,14 +131,15 @@ print("Máquina de Turing soma 1")
 #                )
 
 
-turing_machine(state='q0',  # estado inicial da máquina
+print("Máquina de Turing soma le 0 e A retorna 1 e 2")
+turing_machine(q0='q0',  # estado inicial da máquina
                blank='&',  # Simbolo que representa o vazio
-               tape=list("0A"),  # Fita de dados
-               final='q2',  # Estado final da máquina
-               rules=map(tuple,  # Regras de transição
-                         [
-                             "q0 0 1 right q1".split(),
-                             "q1 A 2 right q2".split(),
-                         ]
-                         )
+               gama=list("1A"),  # Fita de dados
+               f='q2',  # Estado f da máquina
+               girininho=map(tuple,  # Regras de transição
+                             [
+                                 "q0 0 1 right q1".split(),
+                                 "q1 A 2 right q2".split(),
+                             ]
+                             )
                )
