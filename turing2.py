@@ -69,7 +69,6 @@ def turing_machine(state=None, blank=None, rules=[], tape=[], final=None, positi
         # Se para a direita incremenda a posição
         elif dr == 'right':
             position += 1
-
             # Se a posição for maior que o tamanho da fita, adiciona um espaço vazio
             if position >= len(tape):
                 tape.append(blank)
@@ -122,3 +121,16 @@ print("Máquina de Turing soma 1")
 #                          ]
 #                          )
 #                )
+
+
+turing_machine(state='q0',  # estado inicial da máquina
+               blank='&',  # Simbolo que representa o vazio
+               tape=list("0A"),  # Fita de dados
+               final='q2',  # Estado final da máquina
+               rules=map(tuple,  # Regras de transição
+                         [
+                             "q0 0 1 right q1".split(),
+                             "q1 A 2 right q2".split(),
+                         ]
+                         )
+               )
