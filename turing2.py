@@ -117,23 +117,24 @@ print("Máquina de Turing com parada")
 print("Máquina de Turing soma 1")
 # turing_machine(q0='q0',  # estado inicial da máquina
 #                blank='&',  # Simbolo que representa o vazio
-#                q=list("1+1+1"),  # Fita de dados
+#                gama=list("11+11"),  # Fita de dados
 #                f='q3',  # Estado f da máquina
 #                girininho=map(tuple,  # Regras de transição
-#                          [
-#                              "q0 1 1 right q0".split(),
-#                              "q0 + 1 right q1".split(),
-#                              "q1 1 1 right q1".split(),
-#                              "q1 & & left q2".split(),
-#                              "q2 1 & stop q3".split(),
-#                          ]
-#                          )
+#                              [
+#                                  "q0 1 1 right q0".split(),
+#                                  "q0 + 1 right q1".split(),
+#                                  "q1 1 1 right q1".split(),
+#                                  "q1 & & left q2".split(),
+#                                  "q2 1 & stop q3".split(),
+#                              ]
+#                              )
 #                )
 
 
-print("Máquina de Turing soma le 0 e A retorna 1 e 2")
+# print("Máquina de Turing soma le 0 e A retorna 1 e 2")
 turing_machine(q0='q0',  # estado inicial da máquina
-               blank='&',  # Simbolo que representa o vazio
+               blank='&',
+               sigma=['0', 'A'],  # Simbolo que representa o vazio
                gama=list("1A"),  # Fita de dados
                f='q2',  # Estado f da máquina
                girininho=map(tuple,  # Regras de transição
