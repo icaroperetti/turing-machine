@@ -1,10 +1,10 @@
 class Turing():
-    def __init__(self, tape, user_input, initial_state, final_state) -> None:
-        self.tape = tape
-        self.user_input = user_input
-        self.current_state = initial_state
-        self.final_state = final_state
-        self.alphabet = '11+11'
+    def __init__(self, q, sigma, q0, f) -> None:
+        self.q = q
+        self.sigma = sigma
+        self.current_state = q0
+        self.f = f
+        self.gama = ['1', '+']
         self.blank = '&'
         pass
 
@@ -12,51 +12,57 @@ class Turing():
         index = 0
         increment = 1
         current_tape = {}
-        for i in self.user_input:
-            if not i in self.alphabet:
+        # Verificar se a entrada é válida
+        for i in self.sigma:
+            if not i in self.gama:
                 raise Exception('Invalid input')
+
         # Percorrer a entrada do usuário
-        while index < len(self.user_input):
+        while index < len(self.sigma):
+
             # Percorre as fitas para buscar o valor que precisa ser lido e o estado atual
-            for tape in self.tape:
-                if tape.get('read') == self.user_input[index] and tape.get(
+            for q in self.q:
+                if q.get('read') == self.sigma[index] and q.get(
                         'current_state') == self.current_state:
-                    current_tape = tape
+                    current_tape = q
 
             # Substituir o valor no indice [i] do tape pelo valor que deve ser escrito
             if index >= 0:
-                self.user_input = self.user_input[:index] + \
-                    current_tape.get('write') + self.user_input[index + 1:]
+                self.sigma = self.sigma[:index] + \
+                    current_tape.get('write') + self.sigma[index + 1:]
 
+            # Caso não exista indice a direita do indice atual, concatena com o valor blank
             if current_tape.get('direction') == 'R':
-                if not self.check_index(self.user_input, index + 1):
-                    self.user_input += self.blank
+                if not self.check_index(self.sigma, index + 1):
+                    self.sigma += self.blank
                     increment = 1
 
-             # Caso exista não exista indice atrás ele continua onde esta e vai concatenar com o valor do blank
+             # Caso não exista indice atrás ele continua onde esta e vai concatenar com o valor do blank
             elif current_tape.get('direction') == 'L':
-                if not self.check_index(self.user_input, index - 1):
+                if not self.check_index(self.sigma, index - 1):
                     increment = 0
-                    self.user_input = self.blank + self.user_input
+                    self.sigma += self.blank
 
                 # Se for necessário mover para a esquerda e existir um indice a esquerda, ele volta um indice para trás
                 else:
                     increment = -1
-            # Se for para parar o índice apenas continua onde está
+
+            # Se for para parar (S) o índice apenas continua onde está
             else:
                 increment = 0
             index += increment
-            if self.current_state == self.final_state:
-                return self.user_input
 
-             # Atualiza o estado atual para o próximo estado da fita capturada
+            # Atualiza o estado atual para o próximo estado da fita capturada
             self.current_state = current_tape.get('next_state')
+
+            if self.current_state == self.f:
+                print(self.current_state)
+                return self.sigma
 
     # Verificar se o indice existe na string ja que o python retorna error caso nao exista
     def check_index(self, str, index):
         try:
             if str[index]:
-
                 return True
         except:
             return False
@@ -75,19 +81,22 @@ class Turing():
 #             'write': '&', 'read': '&', 'next_state': 'q2'},
 #         ]
 
+# Soma de 1
 tape = [{'current_state': 'q0', 'read': '1', 'next_state': 'q0', 'write': '1', 'direction': 'R'},
+
         {'current_state': 'q0', 'read': '+',
             'next_state': 'q1', 'write': '1', 'direction': 'R'},
-        {'current_state': 'q1', 'read': '1',
-        'next_state': 'q0', 'write': '1', 'direction': 'R'},
+
         {'current_state': 'q1', 'read': '1',
         'next_state': 'q1', 'write': '1', 'direction': 'R'},
+
         {'current_state': 'q1', 'read': '&',
         'next_state': 'q2', 'write': '&', 'direction': 'L'},
+
         {'current_state': 'q2', 'read': '1',
         'next_state': 'q3', 'write': '&', 'direction': 'S'},
         ]
 
 
-turing = Turing(tape, '11+11', 'q0', 'q3')
+turing = Turing(tape, '1+1', 'q0', 'q3')
 print("Return:", turing.execute())
