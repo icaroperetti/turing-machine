@@ -4,7 +4,7 @@ class Turing():
         self.gama = gama
         self.current_state = q0
         self.f = f
-        self.sigma = ['0', 'A']
+        self.sigma = ['a', 'b', 'c']
         self.blank = '&'
         pass
 
@@ -12,8 +12,8 @@ class Turing():
         index = 0
         increment = 0
         current_tape = {}
-
-        # Verificar se a entrada faz parte do sigma
+        print('inicial', self.current_state)
+        # Verificar se a entrada é válida
         # for i in self.gama:
         #     if not i in self.sigma:
         #         raise Exception('Invalid input')
@@ -26,6 +26,7 @@ class Turing():
                 if q.get('read') == self.gama[index] and q.get(
                         'current_state') == self.current_state:
                     current_tape = q
+            print('current_tap', current_tape)
 
             # Substituir o valor no indice [i] do tape pelo valor que deve ser escrito
             if index >= 0:
@@ -60,13 +61,16 @@ class Turing():
 
             if self.current_state == self.f:
                 return self.gama
+            # Atualiza o estado atual para o próximo estado da fita capturada
 
     # Verificar se o indice existe na string ja que o python retorna error caso nao exista
 
     def check_index(self, string, index):
         try:
-            if index < 0 or index > len(string):
+            if index < 0:
                 return False
+            if string[index]:
+                return True
         except:
             return False
 
@@ -74,7 +78,7 @@ class Turing():
 # Deve retornar 12
 # tape = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'next_state': 'q1'},
 #         {'current_state': 'q1', 'direction': 'L',
-#             'write': '2', 'read': 'A', 'next_state': 'q2'},
+#             'write': '2', 'read': 'A'},
 #         ]
 
 
