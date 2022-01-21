@@ -1,6 +1,6 @@
 class Turing():
-    def __init__(self, q, gama, q0, f) -> None:
-        self.q = q
+    def __init__(self, delta, gama, q0, f) -> None:
+        self.delta = delta
         self.gama = gama
         self.current_state = q0
         self.f = f
@@ -22,7 +22,7 @@ class Turing():
         while index < len(self.gama):
 
             # Percorre as fitas para buscar o valor que precisa ser lido e o estado atual
-            for q in self.q:
+            for q in self.delta:
                 if q.get('read') == self.gama[index] and q.get(
                         'current_state') == self.current_state:
                     current_tape = q
@@ -76,20 +76,20 @@ class Turing():
 
 
 # Deve retornar 12
-# tape = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'next_state': 'q1'},
+# delta = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'next_state': 'q1'},
 #         {'current_state': 'q1', 'direction': 'L',
 #             'write': '2', 'read': 'A'},
 #         ]
 
 
 # Deve retornar &&1
-# tape = [{'current_state': 'q0', 'direction': 'L', 'write': '1', 'read': '0', 'next_state': 'q1'},
+# delta = [{'current_state': 'q0', 'direction': 'L', 'write': '1', 'read': '0', 'next_state': 'q1'},
 #         {'current_state': 'q1', 'direction': 'L',
 #             'write': '&', 'read': '&', 'next_state': 'q2'},
 #         ]
 
 # Soma de 1
-# tape = [{'current_state': 'q0', 'read': '1', 'next_state': 'q0', 'write': '1', 'direction': 'R'},
+# delta = [{'current_state': 'q0', 'read': '1', 'next_state': 'q0', 'write': '1', 'direction': 'R'},
 
 #         {'current_state': 'q0', 'read': '+',
 #             'next_state': 'q1', 'write': '1', 'direction': 'R'},
@@ -104,7 +104,7 @@ class Turing():
 #         ]
 
 
-# tape = [
+# delta = [
 #     {'current_state': 'q0', 'read': '0',
 #         'next_state': 'q1', 'write': '1', 'direction': 'L'},
 
@@ -118,7 +118,7 @@ class Turing():
 #         'next_state': 'q4', 'write': '5', 'direction': 'R'},
 # ]
 
-tape = [{
+delta = [{
     'current_state': 'q0',
     'read': 'a',
     'next_state': 'q0',
@@ -150,5 +150,5 @@ tape = [{
 
 ]
 
-turing = Turing(tape, 'abc', 'q0', 'q1')
+turing = Turing(delta, 'abc', 'q0', 'q1')
 print("Return:", turing.execute())
