@@ -16,7 +16,7 @@ def turing_machine(Q=None, q0=None, blank=None, girininho=[], gama=[], sigma=[],
         if not i in gama:
             raise Exception('Invalid input')
 
-    # Se a posição é menor que zero, define a positição como o tamanho da fita
+    # Se a posição é menor que zero, define a posição como o tamanho da fita
     if position < 0:
         position += len(gama)
 
@@ -30,8 +30,8 @@ def turing_machine(Q=None, q0=None, blank=None, girininho=[], gama=[], sigma=[],
     """
 
     # Percorre as regras para encontrar a regra que deve ser aplicada
-    girininho = dict(((s0, v0), (v1, dr, s1))
-                     for (s0, v0, v1, dr, s1) in girininho)
+    rules = dict(((s0, v0), (v1, dr, s1))
+                 for (s0, v0, v1, dr, s1) in girininho)
 
     while(True):
         # print(q0, '\t', end=" ")
@@ -46,37 +46,40 @@ def turing_machine(Q=None, q0=None, blank=None, girininho=[], gama=[], sigma=[],
                 print(v, end=" ")
         print()
 
-        # Se o estado atual for igual o estado f para
-        if q0 == f:
+        # Se o estado atual for igual o estado final para
+        if q0 == f and position > len(gama):
             break
 
         # Se o estado não estiver na regra para
-        if (q0, gama[position]) not in girininho:
+
+        if (q0, gama[position]) not in rules:
             break
 
         # Define as váriaveis de acordo com a regra
-        (v1, dr, s1) = girininho[(q0, gama[position])]
-        print("%s -> %s Valor escrito:%s Proximo:%s" %
-              (q0, gama[position], v1, s1))
-
-        gama[position] = v1  # Sobrescreve o valor da fita
+        (v1, dr, s1) = rules[(q0, gama[position])]
+        gama[position] = v1  # Recebe o valor de entrada da fita
 
         # Direções
 
         # Se for para a esquerda e a posição for maior que zero, decrementa a posição
         if dr == 'left':
+            print("Entrei na direção left", gama[position])
             if position > 0:
                 position -= 1
-
             # Se não existir indice a esquerda, concatena com o valor do blank
             else:
                 gama.insert(0, blank)
-        # Se para a direita incremenda a posição
+
+        # Se for para a direita incrementa a posição
         elif dr == 'right':
+            print("Entrei na direção right", gama[position])
             position += 1
             # Se a posição for maior que o tamanho da fita, adiciona um espaço vazio
             if position >= len(gama):
                 gama.append(blank)
+        elif s1 == f:
+            print("Entrei no estado final", gama[position])
+            break
         else:
             position += 0
         q0 = s1
@@ -117,15 +120,16 @@ print("Máquina de Turing com parada")
 print("Máquina de Turing soma 1")
 # turing_machine(q0='q0',  # estado inicial da máquina
 #                blank='&',  # Simbolo que representa o vazio
-#                gama=list("11+11"),  # Fita de dados
-#                f='q3',  # Estado f da máquina
+#                sigma=['1', '+'],
+#                gama=list("1+1+1"),  # Fita de dados
+#                f='q2',  # Estado f da máquina
 #                girininho=map(tuple,  # Regras de transição
 #                              [
 #                                  "q0 1 1 right q0".split(),
 #                                  "q0 + 1 right q1".split(),
 #                                  "q1 1 1 right q1".split(),
 #                                  "q1 & & left q2".split(),
-#                                  "q2 1 & stop q3".split(),
+#                                  "q2 1 & stop q2".split(),
 #                              ]
 #                              )
 #                )
@@ -135,7 +139,7 @@ print("Máquina de Turing soma 1")
 turing_machine(q0='q0',  # estado inicial da máquina
                blank='&',
                sigma=['0', 'A'],  # Simbolo que representa o vazio
-               gama=list("1A"),  # Fita de dados
+               gama=list("0A"),  # Fita de dados
                f='q2',  # Estado f da máquina
                girininho=map(tuple,  # Regras de transição
                              [
