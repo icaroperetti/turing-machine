@@ -20,35 +20,29 @@ class Turing():
 
         # Percorrer a entrada do usuário
         while index < len(self.gama):
+
             # Percorre as fitas para buscar o valor que precisa ser lido e o estado atual
-            print('index antes', index)
             for q in self.q:
-                # Verificando se o valor de escrita faz parte do gama
-                if not q.get('write') in self.gama and q.get('write') in self.sigma:
-                    raise Exception('Invalid input')
                 if q.get('read') == self.gama[index] and q.get(
                         'current_state') == self.current_state:
                     current_tape = q
-
             print('current_tap', current_tape)
 
             # Substituir o valor no indice [i] do tape pelo valor que deve ser escrito
-            print('antes', self.gama)
             if index >= 0:
                 self.gama = self.gama[:index] + \
                     current_tape.get('write') + self.gama[index + 1:]
-            print('depois', self.gama)
 
             # Caso não exista indice a direita do indice atual, concatena com o valor blank
             if current_tape.get('direction') == 'R':
-                print('Entrei R')
+
                 if self.check_index(self.gama, index + 1) == False:
                     self.gama += self.blank
                 increment = 1
 
              # Caso não exista indice atrás ele continua onde esta e vai concatenar com o valor do blank
             elif current_tape.get('direction') == 'L':
-                print('Entrei L')
+
                 if self.check_index(self.gama, index - 1) == False:
                     self.gama = self.blank + self.gama
                     increment = 0
@@ -59,21 +53,17 @@ class Turing():
 
             # Se for para parar (S) o índice apenas continua onde está
             else:
-                print('Entrei S')
                 increment = 0
             index += increment
-            print('index depos', index)
 
-            print('state antes', self.current_state)
+            #self.current_state = current_tape.get('next_state')
 
-            self.current_state = current_tape.get('next_state')
-
-            if self.current_state == self.f:
+            if self.current_tape.get('next_state') == self.f:
                 return self.gama
             # Atualiza o estado atual para o próximo estado da fita capturada
-            print('state depois', self.current_state)
 
     # Verificar se o indice existe na string ja que o python retorna error caso nao exista
+
     def check_index(self, string, index):
         try:
             if index < 0:
@@ -159,5 +149,5 @@ tape = [{
 
 ]
 
-turing = Turing(tape, 'abcabcd', 'q0', 'q1')
+turing = Turing(tape, 'abcabc&', 'q0', 'q1')
 print("Return:", turing.execute())
