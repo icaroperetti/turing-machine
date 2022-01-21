@@ -4,7 +4,7 @@ class Turing():
         self.gama = gama
         self.current_state = q0
         self.f = f
-        self.sigma = ['A0']
+        self.sigma = ['0', 'A']
         self.blank = '&'
         pass
 
@@ -14,9 +14,9 @@ class Turing():
         current_tape = {}
 
         # Verificar se a entrada faz parte do sigma
-        for i in self.gama:
-            if not i in self.sigma:
-                raise Exception('Invalid input')
+        # for i in self.gama:
+        #     if not i in self.sigma:
+        #         raise Exception('Invalid input')
 
         # Percorrer a entrada do usuário
         while index < len(self.gama):
@@ -26,7 +26,6 @@ class Turing():
                 if q.get('read') == self.gama[index] and q.get(
                         'current_state') == self.current_state:
                     current_tape = q
-            
 
             # Substituir o valor no indice [i] do tape pelo valor que deve ser escrito
             if index >= 0:
@@ -73,17 +72,17 @@ class Turing():
 
 
 # Deve retornar 12
-tape = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'next_state': 'q1'},
-        {'current_state': 'q1', 'direction': 'L',
-            'write': '2', 'read': 'A', 'next_state': 'q2'},
-        ]
+# tape = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'next_state': 'q1'},
+#         {'current_state': 'q1', 'direction': 'L',
+#             'write': '2', 'read': 'A', 'next_state': 'q2'},
+#         ]
 
 
 # Deve retornar &&1
-# tape = [{'current_state': 'q0', 'direction': 'L', 'write': '1', 'read': '0', 'next_state': 'q1'},
-#         {'current_state': 'q1', 'direction': 'L',
-#             'write': '&', 'read': '&', 'next_state': 'q2'},
-#         ]
+tape = [{'current_state': 'q0', 'direction': 'L', 'write': '1', 'read': '0', 'next_state': 'q1'},
+        {'current_state': 'q1', 'direction': 'L',
+            'write': '&', 'read': '&', 'next_state': 'q2'},
+        ]
 
 # Soma de 1
 # tape = [{'current_state': 'q0', 'read': '1', 'next_state': 'q0', 'write': '1', 'direction': 'R'},
@@ -147,5 +146,5 @@ tape = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'ne
 
 # ]
 
-turing = Turing(tape, '0A', 'q0', 'q2')
+turing = Turing(tape, '0', 'q0', 'q2')
 print("Return:", turing.execute())

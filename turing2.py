@@ -41,10 +41,6 @@ def turing_machine(Q=None, q0=None, blank=None, girininho=[], gama=[], sigma=[],
                 print(v, end=" ")
         print()
 
-        # Se o estado atual for igual o estado final para
-        if q0 == f and position > len(gama):
-            break
-
         # Se o estado não estiver na regra para
 
         if (q0, gama[position]) not in rules:
