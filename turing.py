@@ -12,8 +12,8 @@ class Turing():
         index = 0
         increment = 0
         current_tape = {}
-        print('inicial', self.current_state)
-        # Verificar se a entrada é válida
+
+        # Verificar se a entrada faz parte do sigma
         for i in self.gama:
             if not i in self.sigma:
                 raise Exception('Invalid input')
@@ -26,7 +26,7 @@ class Turing():
                 if q.get('read') == self.gama[index] and q.get(
                         'current_state') == self.current_state:
                     current_tape = q
-            print('current_tap', current_tape)
+            
 
             # Substituir o valor no indice [i] do tape pelo valor que deve ser escrito
             if index >= 0:
