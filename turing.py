@@ -4,7 +4,7 @@ class Turing():
         self.gama = gama
         self.current_state = q0
         self.f = f
-        self.sigma = ['a', 'b', 'c']
+        self.sigma = ['A0']
         self.blank = '&'
         pass
 
@@ -14,9 +14,9 @@ class Turing():
         current_tape = {}
         print('inicial', self.current_state)
         # Verificar se a entrada é válida
-        # for i in self.gama:
-        #     if not i in self.sigma:
-        #         raise Exception('Invalid input')
+        for i in self.gama:
+            if not i in self.sigma:
+                raise Exception('Invalid input')
 
         # Percorrer a entrada do usuário
         while index < len(self.gama):
@@ -56,29 +56,27 @@ class Turing():
                 increment = 0
             index += increment
 
-            #self.current_state = current_tape.get('next_state')
-
-            if current_tape.get('next_state') == self.f:
-                return self.gama
             # Atualiza o estado atual para o próximo estado da fita capturada
+            self.current_state = current_tape.get('next_state')
+
+            if self.current_state == self.f:
+                return self.gama
 
     # Verificar se o indice existe na string ja que o python retorna error caso nao exista
 
     def check_index(self, string, index):
         try:
-            if index < 0:
+            if index < 0 or index > len(string):
                 return False
-            if string[index]:
-                return True
         except:
             return False
 
 
 # Deve retornar 12
-# tape = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'next_state': 'q1'},
-#         {'current_state': 'q1', 'direction': 'L',
-#             'write': '2', 'read': 'A'},
-#         ]
+tape = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'next_state': 'q1'},
+        {'current_state': 'q1', 'direction': 'L',
+            'write': '2', 'read': 'A', 'next_state': 'q2'},
+        ]
 
 
 # Deve retornar &&1
@@ -117,37 +115,37 @@ class Turing():
 #         'next_state': 'q4', 'write': '5', 'direction': 'R'},
 # ]
 
-tape = [{
-    'current_state': 'q0',
-    'read': 'a',
-    'next_state': 'q0',
-    'write': '1',
-    'direction': 'R'
-},
-    {
-    'current_state': 'q0',
-    'read': 'b',
-    'next_state': 'q0',
-    'write': '2',
-    'direction': 'R'
-},
-    {
-    'current_state': 'q0',
-    'read': 'c',
-    'next_state': 'q0',
-    'write': '3',
-    'direction': 'R'
+# tape = [{
+#     'current_state': 'q0',
+#     'read': 'a',
+#     'next_state': 'q0',
+#     'write': '1',
+#     'direction': 'R'
+# },
+#     {
+#     'current_state': 'q0',
+#     'read': 'b',
+#     'next_state': 'q0',
+#     'write': '2',
+#     'direction': 'R'
+# },
+#     {
+#     'current_state': 'q0',
+#     'read': 'c',
+#     'next_state': 'q0',
+#     'write': '3',
+#     'direction': 'R'
 
-},
-    {
-    'current_state': 'q0',
-    'read': '&',
-    'next_state': 'q1',
-    'write': '&',
-    'direction': 'S'
-}
+# },
+#     {
+#     'current_state': 'q0',
+#     'read': '&',
+#     'next_state': 'q1',
+#     'write': '&',
+#     'direction': 'S'
+# }
 
-]
+# ]
 
-turing = Turing(tape, 'abcabc&', 'q0', 'q1')
+turing = Turing(tape, '0A', 'q0', 'q2')
 print("Return:", turing.execute())
