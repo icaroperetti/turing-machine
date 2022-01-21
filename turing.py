@@ -1,6 +1,3 @@
-from re import S
-
-
 class Turing():
     def __init__(self, delta, gama, q0, f) -> None:
         self.delta = delta
