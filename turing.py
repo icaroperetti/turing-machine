@@ -58,7 +58,7 @@ class Turing():
 
             #self.current_state = current_tape.get('next_state')
 
-            if self.current_tape.get('next_state') == self.f:
+            if current_tape.get('next_state') == self.f:
                 return self.gama
             # Atualiza o estado atual para o próximo estado da fita capturada
 
