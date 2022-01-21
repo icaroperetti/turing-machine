@@ -83,10 +83,10 @@ class Turing():
 
 
 # Deve retornar &&1
-tape = [{'current_state': 'q0', 'direction': 'L', 'write': '1', 'read': '0', 'next_state': 'q1'},
-        {'current_state': 'q1', 'direction': 'L',
-            'write': '&', 'read': '&', 'next_state': 'q2'},
-        ]
+# tape = [{'current_state': 'q0', 'direction': 'L', 'write': '1', 'read': '0', 'next_state': 'q1'},
+#         {'current_state': 'q1', 'direction': 'L',
+#             'write': '&', 'read': '&', 'next_state': 'q2'},
+#         ]
 
 # Soma de 1
 # tape = [{'current_state': 'q0', 'read': '1', 'next_state': 'q0', 'write': '1', 'direction': 'R'},
@@ -118,37 +118,37 @@ tape = [{'current_state': 'q0', 'direction': 'L', 'write': '1', 'read': '0', 'ne
 #         'next_state': 'q4', 'write': '5', 'direction': 'R'},
 # ]
 
-# tape = [{
-#     'current_state': 'q0',
-#     'read': 'a',
-#     'next_state': 'q0',
-#     'write': '1',
-#     'direction': 'R'
-# },
-#     {
-#     'current_state': 'q0',
-#     'read': 'b',
-#     'next_state': 'q0',
-#     'write': '2',
-#     'direction': 'R'
-# },
-#     {
-#     'current_state': 'q0',
-#     'read': 'c',
-#     'next_state': 'q0',
-#     'write': '3',
-#     'direction': 'R'
+tape = [{
+    'current_state': 'q0',
+    'read': 'a',
+    'next_state': 'q0',
+    'write': '1',
+    'direction': 'R'
+},
+    {
+    'current_state': 'q0',
+    'read': 'b',
+    'next_state': 'q0',
+    'write': '2',
+    'direction': 'R'
+},
+    {
+    'current_state': 'q0',
+    'read': 'c',
+    'next_state': 'q0',
+    'write': '3',
+    'direction': 'R'
 
-# },
-#     {
-#     'current_state': 'q0',
-#     'read': '&',
-#     'next_state': 'q1',
-#     'write': '&',
-#     'direction': 'S'
-# }
+},
+    {
+    'current_state': 'q0',
+    'read': '&',
+    'next_state': 'q1',
+    'write': '&',
+    'direction': 'S'
+}
 
-# ]
+]
 
-turing = Turing(tape, '0', 'q0', 'q2')
+turing = Turing(tape, 'abc', 'q0', 'q1')
 print("Return:", turing.execute())
