@@ -159,5 +159,5 @@ tape = [{
 
 ]
 
-turing = Turing(tape, 'abcabc', 'q0', 'q1')
+turing = Turing(tape, 'abcabcd', 'q0', 'q1')
 print("Return:", turing.execute())
