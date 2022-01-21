@@ -1,10 +1,13 @@
+from re import S
+
+
 class Turing():
     def __init__(self, delta, gama, q0, f) -> None:
         self.delta = delta
         self.gama = gama
         self.current_state = q0
         self.f = f
-        self.sigma = ['a', 'b', 'c']
+        self.sigma = ['1', '+']
         self.blank = '&'
         pass
 
@@ -12,21 +15,21 @@ class Turing():
         index = 0
         increment = 0
         current_tape = {}
-        print('inicial', self.current_state)
+
         # Verificar se a entrada é válida
-        # for i in self.gama:
-        #     if not i in self.sigma:
-        #         raise Exception('Invalid input')
+        for i in self.gama:
+            if not i in self.sigma:
+                raise Exception('Invalid input')
 
-        # Percorrer a entrada do usuário
-        while index < len(self.gama):
-
+        while True:
             # Percorre as fitas para buscar o valor que precisa ser lido e o estado atual
+            if index < 0:
+                index += len(self.gama)
+
             for q in self.delta:
                 if q.get('read') == self.gama[index] and q.get(
                         'current_state') == self.current_state:
                     current_tape = q
-            print('current_tap', current_tape)
 
             # Substituir o valor no indice [i] do tape pelo valor que deve ser escrito
             if index >= 0:
@@ -61,94 +64,31 @@ class Turing():
 
             if self.current_state == self.f:
                 return self.gama
-            # Atualiza o estado atual para o próximo estado da fita capturada
 
     # Verificar se o indice existe na string ja que o python retorna error caso nao exista
-
     def check_index(self, string, index):
         try:
-            if index < 0:
+            if index < 0 or index >= len(string):
                 return False
-            if string[index]:
-                return True
         except:
             return False
 
 
-# Deve retornar 12
-# delta = [{'current_state': 'q0', 'direction': 'R', 'write': '1', 'read': '0', 'next_state': 'q1'},
-#         {'current_state': 'q1', 'direction': 'L',
-#             'write': '2', 'read': 'A'},
-#         ]
-
-
-# Deve retornar &&1
-# delta = [{'current_state': 'q0', 'direction': 'L', 'write': '1', 'read': '0', 'next_state': 'q1'},
-#         {'current_state': 'q1', 'direction': 'L',
-#             'write': '&', 'read': '&', 'next_state': 'q2'},
-#         ]
-
 # Soma de 1
-# delta = [{'current_state': 'q0', 'read': '1', 'next_state': 'q0', 'write': '1', 'direction': 'R'},
+delta = [{'current_state': 'q0', 'read': '1', 'next_state': 'q0', 'write': '1', 'direction': 'R'},
 
-#         {'current_state': 'q0', 'read': '+',
-#             'next_state': 'q1', 'write': '1', 'direction': 'R'},
+         {'current_state': 'q0', 'read': '+',
+         'next_state': 'q1', 'write': '1', 'direction': 'R'},
 
-#         {'current_state': 'q1', 'read': '1',
-#         'next_state': 'q1', 'write': '1', 'direction': 'R'},
+         {'current_state': 'q1', 'read': '1',
+         'next_state': 'q1', 'write': '1', 'direction': 'R'},
 
-#         {'current_state': 'q1', 'read': '&',
-#         'next_state': 'q2', 'write': '&', 'direction': 'L'},
-#         {'current_state': 'q2', 'read': '1',
-#         'next_state': 'q3', 'write': '&', 'direction': 'S'},
-#         ]
+         {'current_state': 'q1', 'read': '&',
+          'next_state': 'q2', 'write': '&', 'direction': 'L'},
+         {'current_state': 'q2', 'read': '1',
+          'next_state': 'q3', 'write': '&', 'direction': 'S'},
+         ]
 
 
-# delta = [
-#     {'current_state': 'q0', 'read': '0',
-#         'next_state': 'q1', 'write': '1', 'direction': 'L'},
-
-#     {'current_state': 'q1', 'read': '&', 'next_state': 'q2',
-#         'write': '1', 'direction': 'R'},
-
-#     {'current_state': 'q2', 'read': '1',
-#         'next_state': 'q3', 'write': '0', 'direction': 'S'},
-
-#     {'current_state': 'q3', 'read': '0',
-#         'next_state': 'q4', 'write': '5', 'direction': 'R'},
-# ]
-
-delta = [{
-    'current_state': 'q0',
-    'read': 'a',
-    'next_state': 'q0',
-    'write': '1',
-    'direction': 'R'
-},
-    {
-    'current_state': 'q0',
-    'read': 'b',
-    'next_state': 'q0',
-    'write': '2',
-    'direction': 'R'
-},
-    {
-    'current_state': 'q0',
-    'read': 'c',
-    'next_state': 'q0',
-    'write': '3',
-    'direction': 'R'
-
-},
-    {
-    'current_state': 'q0',
-    'read': '&',
-    'next_state': 'q1',
-    'write': '&',
-    'direction': 'S'
-}
-
-]
-
-turing = Turing(delta, 'abc', 'q0', 'q1')
+turing = Turing(delta, '111+11', 'q0', 'q3')
 print("Return:", turing.execute())
