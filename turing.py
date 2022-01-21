@@ -9,6 +9,7 @@ class Turing():
         pass
 
     def execute(self):
+        aceita = '111+11'
         index = 0
         increment = 0
         current_tape = {}
@@ -16,6 +17,8 @@ class Turing():
         # Verificar se a entrada é válida
         for i in self.gama:
             if not i in self.sigma:
+                raise Exception('Invalid input')
+            if not self.gama == aceita:
                 raise Exception('Invalid input')
 
         while True:
@@ -71,7 +74,7 @@ class Turing():
             return False
 
 
-# Soma de 1
+# Soma de 111+11=11111
 delta = [{'current_state': 'q0', 'read': '1', 'next_state': 'q0', 'write': '1', 'direction': 'R'},
 
          {'current_state': 'q0', 'read': '+',
