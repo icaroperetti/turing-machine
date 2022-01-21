@@ -1,9 +1,4 @@
 
-# q0: estados da máquina
-# Blank: caracter que representa o espaço vazio
-# girininho: regras de transição
-# q: fita de dados
-# f: estado final
 
 def turing_machine(Q=None, q0=None, blank=None, girininho=[], gama=[], sigma=[], f=None, position=0):
 
